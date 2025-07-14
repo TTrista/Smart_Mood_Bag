@@ -1,0 +1,72 @@
+name: Flutter Build and Upload Android APK
+
+on:
+  push:
+    branches: [ main ]
+     # tags:
+     # - "v1.0.0"          # In this case when you tag your commit with v1.0.0 for example
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: microsoft
+
+      - name: Install yq
+        uses: mikefarah/yq@v4.42.1
+
+      - name: Generate new tag
+        id: new_tag
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_prefix: "v"
+          default_bump: patch 
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.3'   #  # Use the latest stable version of Flutter
+          channel: 'stable'           # or use main
+
+      - name: Get Flutter dependencies
+        run: cd app && flutter pub get
+
+      - name: Build APK Release
+        run: cd app && flutter build apk --release
+
+      - name: Build AppBundle
+        run: cd app && flutter build appbundle --release
+
+      - name: Save APK to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-apk
+          path: app/build/app/outputs/flutter-apk/*.apk
+
+      - name: Save AppBundle to Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-appbundle
+          path: app/build/app/outputs/bundle/release/*.aab
+
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "app/build/app/outputs/bundle/release/*.aab,app/build/app/outputs/flutter-apk/*.apk"
+          tag: "${{ steps.new_tag.outputs.new_tag }}"
+          name: "Release ${{ steps.new_tag.outputs.new_tag }}"
+          generateReleaseNotes: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
