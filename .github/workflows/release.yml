@@ -3,8 +3,8 @@ name: Flutter Build and Upload Android APK
 on:
   push:
     branches: [ main ]
-     # tags:
-     # - "v1.0.0"          # In this case when you tag your commit with v1.0.0 for example
+    # tags:
+    #   - "v1.0.0"
 
 jobs:
   build:
@@ -37,36 +37,35 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.29.3'   #  # Use the latest stable version of Flutter
-          channel: 'stable'           # or use main
+          flutter-version: '3.29.3'
+          channel: 'stable'
 
       - name: Get Flutter dependencies
-        run: cd app && flutter pub get
+        run: flutter pub get
 
       - name: Build APK Release
-        run: cd app && flutter build apk --release
+        run: flutter build apk --release
 
       - name: Build AppBundle
-        run: cd app && flutter build appbundle --release
+        run: flutter build appbundle --release
 
       - name: Save APK to Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: flutter-apk
-          path: app/build/app/outputs/flutter-apk/*.apk
+          path: build/app/outputs/flutter-apk/*.apk
 
       - name: Save AppBundle to Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: flutter-appbundle
-          path: app/build/app/outputs/bundle/release/*.aab
+          path: build/app/outputs/bundle/release/*.aab
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "app/build/app/outputs/bundle/release/*.aab,app/build/app/outputs/flutter-apk/*.apk"
+          artifacts: "build/app/outputs/bundle/release/*.aab,build/app/outputs/flutter-apk/*.apk"
           tag: "${{ steps.new_tag.outputs.new_tag }}"
           name: "Release ${{ steps.new_tag.outputs.new_tag }}"
           generateReleaseNotes: true
           token: ${{ secrets.GITHUB_TOKEN }}
-
