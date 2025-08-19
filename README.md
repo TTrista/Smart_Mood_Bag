@@ -63,7 +63,8 @@ It can be worn over everyday clothing and is suitable for both indoor and outdoo
 - BLE connection to ESP32 for data streaming.  
 - Stress-level analysis and popup notifications.  
 
-<img src="" alt="screenshot video" width="600" />
+<img src="https://github.com/TTrista/Smart_Mood_Bag/blob/main/show_demo/APP_screenshot.jpg" alt="screenshot video" width="600" />
+
 ---
 
 
