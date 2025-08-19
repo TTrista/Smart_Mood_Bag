@@ -42,7 +42,8 @@ is a wearable portable system that integrates a medical-grade sensor device and 
 
 ## 🖼️ Wearing Method
 
-> ![Wearing Style](show_demo\wearingmethod.jpg)  
+<img src="https://github.com/TTrista/Smart_Mood_Bag/blob/main/show_demo/wearingmethod.jpg" alt="wearing method" width="600" />
+ 
 
  The Smart Mood Bag is designed as a small crossbody bag to make ECG data collection comfortable and unobtrusive.
 It can be worn over everyday clothing and is suitable for both indoor and outdoor activities.
@@ -51,28 +52,34 @@ It can be worn over everyday clothing and is suitable for both indoor and outdoo
 
 ## 🎥 Project Promo Video
 
-> [![Watch the promo video](show_demo\cover.jpg)](https://www.youtube.com/watch?v=0eqL12BLzN0)  
+<img src="https://github.com/TTrista/Smart_Mood_Bag/blob/main/show_demo/cover.jpg" alt="YouTube video" width="600" />(https://www.youtube.com/watch?v=0eqL12BLzN0)  
 > Click to watch the official project introduction video.
 
 ---
 ## 📱App overview
 
+
+- Real-time heart rate and HRV visualization (line charts).  
+- BLE connection to ESP32 for data streaming.  
+- Stress-level analysis and popup notifications.  
+
+<img src="" alt="screenshot video" width="600" />
 ---
 
-## 📂 Project Structure
 
-Smart_Mood_Bag/
-├── lib/ # Flutter App source code
-├── android/ # Android platform configuration
-├── ios/ # iOS platform configuration
-├── firmware/ # MCU firmware source code (ESP32/Arduino)
-├── docs/ # Documentation and resource files (images, video thumbnails)
-├── build/ # Generated build outputs (do not commit)
-├── pubspec.yaml # Flutter dependency configuration
-├── LICENSE
-├── README.md
+## 📂 Repository Structure (by branches)
+
+- **[App (Flutter)](https://github.com/TTrista/Smart_Mood_Bag/tree/main)**  
+  Mobile app for real-time HR/HRV monitoring and stress alerts.
+
+- **[Firmware (ESP32)](https://github.com/TTrista/Smart_Mood_Bag/tree/firmware)**  
+  Arduino/ESP32 code that reads ECG signals and transmits HR/HRV via BLE.
+
+- **[Hardware (design & Enclosure)](https://github.com/TTrista/Smart_Mood_Bag/tree/hardware)**  
+  Circuit schematics and design, and 3D-printed bag enclosure.
 
 ---
+
 
 ## 🚀 Getting Started
 
